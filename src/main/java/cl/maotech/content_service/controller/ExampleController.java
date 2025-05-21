@@ -23,12 +23,12 @@ public class ExampleController {
     @Autowired
     private ExampleService exampleService;
 
-    @GetMapping("/")
+    @GetMapping
     public List<Example> getAllExamples() {
         return exampleService.getAllExamples();
     }
 
-    @PostMapping("/")
+    @PostMapping
     public void createExample(@RequestBody Example example) {
         exampleService.createExample(example);
     }
