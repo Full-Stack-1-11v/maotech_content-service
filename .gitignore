@@ -6,6 +6,8 @@ target/
 
 ### Environment ###
 /.env
+/.env.local
+/.env.prod
 
 ### STS ###
 .apt_generated

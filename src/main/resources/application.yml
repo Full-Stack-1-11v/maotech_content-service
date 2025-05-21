@@ -4,9 +4,9 @@ spring:
   application:
     name: content-service
   datasource:
-    url: DB_URL # ubicación de la base de datos
-    username: DB_USER
-    password: DB_PASS # contraseña
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    url: jdbc:mysql://${DB_URL}/${DB_NAME}
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
