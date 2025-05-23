@@ -13,7 +13,7 @@ spring:
       mode: always # Asegura que los scripts SQL se ejecuten en cualquier entorno
   jpa:
     hibernate:
-      ddl-auto: create # Cambiar a "none" en producción
+      ddl-auto: update # Cambiar a "none" en producción
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
