@@ -6,19 +6,15 @@ spring:
   datasource:
     username: ${DB_USER}
     password: ${DB_PASS}
-    url: jdbc:mysql://${DB_URL}/${DB_NAME}
+    url: ${DB_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
   sql:
     init:
       mode: always # Asegura que los scripts SQL se ejecuten en cualquier entorno
   jpa:
     hibernate:
-      ddl-auto: update # Cambiar a "none" en producción
+      ddl-auto: create # Cambiar a "none" en producción
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
     defer-datasource-initialization: true # permite inicializar el archivo data.sql posteriormente
-# eureka: -- este código nos servirá para cuando levantemos el servidor eureka
-  # client:
-    # service-url:
-      # defaultZone: http://localhost:8761/eureka/
