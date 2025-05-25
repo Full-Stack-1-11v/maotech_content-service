@@ -1,5 +1,5 @@
 server:
-  port: 8090 # puerto en el que se levantará el servicio
+  port: 8084 # puerto en el que se levantará el servicio
 spring:
   application:
     name: content-service
