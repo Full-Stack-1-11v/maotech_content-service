@@ -168,20 +168,4 @@ public class Content {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    /**
-     * Representación en cadena del objeto Content.
-     * 
-     * @return Una cadena que representa el contenido con su ID, título y tipo.
-     */
-    @Override
-    public String toString() {
-        return "Content{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", type='" + type + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
 }
