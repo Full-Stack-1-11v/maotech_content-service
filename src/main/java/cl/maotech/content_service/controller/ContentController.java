@@ -34,8 +34,9 @@ public class ContentController {
     }
 
     @PostMapping
-    public void createContent(@RequestBody Content content) {
+    public ResponseEntity<Void> createContent(@RequestBody Content content) {
         contentService.createContent(content);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")

@@ -198,4 +198,45 @@ public class ContentControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
     }
+
+    @Test
+    void handleException_excepcionGenerica_debeRetornarBadRequest() throws Exception {
+        // Given - Simular excepción en el servicio
+        Mockito.when(contentService.getAllContents()).thenThrow(new RuntimeException("Error genérico"));
+
+        // When & Then
+        mockMvc.perform(get("/content"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.statusCode", is(400)))
+                .andExpect(jsonPath("$.message", is("Error genérico")));
+    }
+
+    @Test
+    void handleException_contentNotFoundException_debeRetornarNotFound() throws Exception {
+        // Given - Ya cubierto en otros tests, pero verificamos el JSON de respuesta
+        Mockito.when(contentService.getContentById(999L)).thenReturn(null);
+
+        // When & Then
+        mockMvc.perform(get("/content/999"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.statusCode", is(404)))
+                .andExpect(jsonPath("$.message", is("Contenido no encontrado con la ID: 999")));
+    }
+
+    @Test
+    void handleException_errorValidacion_debeRetornarBadRequest() throws Exception {
+        // Given - Simular error de validación en createContent
+        Mockito.doThrow(new IllegalArgumentException("Datos inválidos"))
+                .when(contentService).createContent(any(Content.class));
+
+        Content content = new Content("Título", "Descripción", "pdf", "active");
+
+        // When & Then
+        mockMvc.perform(post("/content")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(content)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.statusCode", is(400)))
+                .andExpect(jsonPath("$.message", is("Datos inválidos")));
+    }
 }
