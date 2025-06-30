@@ -1,15 +1,15 @@
 package cl.maotech.content_service.exception;
 
 /**
- * Excepción personalizada que se lanza cuando no se encuentra un contenido solicitado.
+ * Clase que representa la respuesta de error estándar para el API de contenidos.
  * 
- * <p>Esta excepción es una subclase de RuntimeException, lo que significa que es
- * una excepción no verificada (unchecked exception). Se utiliza específicamente
- * en el contexto del servicio de contenidos cuando se busca un contenido por ID
- * y no se encuentra en la base de datos.</p>
+ * <p>Esta clase se utiliza para estructurar las respuestas de error de manera
+ * consistente en toda la aplicación. Contiene el código de estado HTTP y un
+ * mensaje descriptivo del error.</p>
  * 
- * <p>La excepción puede ser capturada por los manejadores de excepciones del
- * controlador para devolver respuestas HTTP apropiadas (como 404 Not Found).</p>
+ * <p>Es utilizada por los manejadores de excepciones del controlador para
+ * devolver errores en formato JSON con una estructura consistente, permitiendo
+ * a los clientes de la API procesar los errores de manera uniforme.</p>
  * 
  * @author MaoTech Team
  * @version 1.0.0
@@ -22,12 +22,31 @@ public class ContentErrorResponse {
      * Representa el código de respuesta HTTP apropiado (ej: 404, 400, 500).
      */
     private int statusCode;
+
     /**
      * Mensaje descriptivo del error.
      * Proporciona información detallada sobre la causa del error.
      */
     private String message;
-    
+
+    /**
+     * Constructor por defecto.
+     * Crea una respuesta de error vacía.
+     */
+    public ContentErrorResponse() {
+    }
+
+    /**
+     * Constructor con parámetros para crear una respuesta de error completa.
+     * 
+     * @param statusCode El código de estado HTTP del error.
+     * @param message El mensaje descriptivo del error.
+     */
+    public ContentErrorResponse(int statusCode, String message) {
+        this.statusCode = statusCode;
+        this.message = message;
+    }
+
     /**
      * Obtiene el código de estado HTTP del error.
      * 
@@ -65,21 +84,15 @@ public class ContentErrorResponse {
     }
 
     /**
-     * Constructor con parámetros para crear una respuesta de error completa.
+     * Representación en cadena del objeto ContentErrorResponse.
      * 
-     * @param statusCode El código de estado HTTP del error.
-     * @param message El mensaje descriptivo del error.
+     * @return Una cadena que representa la respuesta de error con su código y mensaje.
      */
-    public ContentErrorResponse(int statusCode, String message) {
-        this.statusCode = statusCode;
-        this.message = message;
+    @Override
+    public String toString() {
+        return "ContentErrorResponse{" +
+                "statusCode=" + statusCode +
+                ", message='" + message + '\'' +
+                '}';
     }
-
-     /**
-     * Constructor por defecto.
-     * Crea una respuesta de error vacía.
-     */
-    public ContentErrorResponse() {
-    }
-    
 }
