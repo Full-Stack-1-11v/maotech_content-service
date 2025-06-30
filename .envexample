@@ -1,0 +1,5 @@
+DB_URL=
+DB_NAME=
+DB_USER=
+DB_PASS=
+### docker run --name spring_mysqldb -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:latest  

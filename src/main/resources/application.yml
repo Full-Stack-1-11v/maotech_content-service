@@ -1,0 +1,46 @@
+server:
+  port: 8084 # puerto en el que se levantará el servicio
+
+spring:
+  application:
+    name: content-service
+  datasource:
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    url: ${DB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always # Asegura que los scripts SQL se ejecuten en cualquier entorno
+  jpa:
+    hibernate:
+      ddl-auto: update # Cambiar a "none" en producción
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true # permite inicializar el archivo data.sql posteriormente
+
+# Configuración de Swagger/OpenAPI
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    enabled: true
+    path: /doc/swagger-ui.html
+  info:
+    title: Content Service API
+    description: API para la gestión de contenido del sistema
+    version: 1.0.0
+    contact:
+      name: MaoTech Team
+      email: support@maotech.cl
+
+# Configuración de logging
+logging:
+  level:
+    cl.maotech.content_service: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
