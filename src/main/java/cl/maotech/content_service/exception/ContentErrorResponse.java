@@ -82,17 +82,4 @@ public class ContentErrorResponse {
     public void setMessage(String message) {
         this.message = message;
     }
-
-    /**
-     * Representación en cadena del objeto ContentErrorResponse.
-     * 
-     * @return Una cadena que representa la respuesta de error con su código y mensaje.
-     */
-    @Override
-    public String toString() {
-        return "ContentErrorResponse{" +
-                "statusCode=" + statusCode +
-                ", message='" + message + '\'' +
-                '}';
-    }
 }
