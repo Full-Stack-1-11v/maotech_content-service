@@ -23,7 +23,6 @@ import cl.maotech.content_service.exception.ContentNotFoundException;
 import cl.maotech.content_service.model.Content;
 import cl.maotech.content_service.service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -68,13 +67,14 @@ public class ContentController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", 
                         description = "Lista de contenidos obtenida correctamente", 
-                        content = @Content(mediaType = "application/json", 
-                                         schema = @Schema(implementation = cl.maotech.content_service.model.Content.class)))
+                        content = @io.swagger.v3.oas.annotations.media.Content(
+                            mediaType = "application/json", 
+                            schema = @Schema(implementation = Content.class)))
     })
     @GetMapping
-    public List<cl.maotech.content_service.model.Content> getAllContents() {
+    public List<Content> getAllContents() {
         logger.info("Solicitud para obtener todos los contenidos");
-        List<cl.maotech.content_service.model.Content> contents = contentService.getAllContents();
+        List<Content> contents = contentService.getAllContents();
         logger.info("Se encontraron {} contenidos", contents.size());
         return contents;
     }
@@ -94,7 +94,7 @@ public class ContentController {
                         description = "Datos de entrada inválidos")
     })
     @PostMapping
-    public ResponseEntity<Void> createContent(@RequestBody cl.maotech.content_service.model.Content content) {
+    public ResponseEntity<Void> createContent(@RequestBody Content content) {
         logger.info("Solicitud para crear contenido: {}", content.getTitle());
         contentService.createContent(content);
         logger.info("Contenido creado exitosamente con título: {}", content.getTitle());
@@ -113,15 +113,16 @@ public class ContentController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", 
                         description = "Contenido encontrado", 
-                        content = @Content(mediaType = "application/json", 
-                                         schema = @Schema(implementation = cl.maotech.content_service.model.Content.class))),
+                        content = @io.swagger.v3.oas.annotations.media.Content(
+                            mediaType = "application/json", 
+                            schema = @Schema(implementation = Content.class))),
             @ApiResponse(responseCode = "404", 
                         description = "Contenido no encontrado")
     })
     @GetMapping("/{id}")
-    public cl.maotech.content_service.model.Content getContentById(@PathVariable Long id) {
+    public Content getContentById(@PathVariable Long id) {
         logger.info("Solicitud para obtener contenido con ID: {}", id);
-        cl.maotech.content_service.model.Content content = contentService.getContentById(id);
+        Content content = contentService.getContentById(id);
         if (content == null) {
             logger.warn("No se encontró contenido con ID: {}", id);
             throw new ContentNotFoundException("Contenido no encontrado con la ID: " + id);
@@ -146,9 +147,9 @@ public class ContentController {
                         description = "Contenido no encontrado")
     })
     @PutMapping("/{id}")
-    public void updateContent(@PathVariable Long id, @RequestBody cl.maotech.content_service.model.Content content) {
+    public void updateContent(@PathVariable Long id, @RequestBody Content content) {
         logger.info("Solicitud para actualizar contenido con ID: {}", id);
-        cl.maotech.content_service.model.Content contentToEdit = contentService.getContentById(id);
+        Content contentToEdit = contentService.getContentById(id);
         if (contentToEdit == null) {
             logger.warn("No se encontró contenido con ID: {} para actualizar", id);
             throw new ContentNotFoundException("Contenido no encontrado con la ID: " + id);
@@ -174,7 +175,7 @@ public class ContentController {
     @DeleteMapping("/{id}")
     public void deleteContent(@PathVariable Long id) {
         logger.info("Solicitud para eliminar contenido con ID: {}", id);
-        cl.maotech.content_service.model.Content content = contentService.getContentById(id);
+        Content content = contentService.getContentById(id);
         if (content == null) {
             logger.warn("No se encontró contenido con ID: {} para eliminar", id);
             throw new ContentNotFoundException("Contenido no encontrado con la ID: " + id);
@@ -195,15 +196,16 @@ public class ContentController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", 
                         description = "Contenidos encontrados", 
-                        content = @Content(mediaType = "application/json", 
-                                         schema = @Schema(implementation = cl.maotech.content_service.model.Content.class)))
+                        content = @io.swagger.v3.oas.annotations.media.Content(
+                            mediaType = "application/json", 
+                            schema = @Schema(implementation = Content.class)))
     })
     @GetMapping("/search")
-    public List<cl.maotech.content_service.model.Content> getContentByTypeAndStatus(
+    public List<Content> getContentByTypeAndStatus(
             @RequestParam String type,
             @RequestParam String status) {
         logger.info("Solicitud para buscar contenidos - Tipo: {}, Estado: {}", type, status);
-        List<cl.maotech.content_service.model.Content> contents = contentService.getContentByTypeAndStatus(type, status);
+        List<Content> contents = contentService.getContentByTypeAndStatus(type, status);
         logger.info("Se encontraron {} contenidos con tipo: {} y estado: {}", contents.size(), type, status);
         return contents;
     }
