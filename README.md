@@ -43,12 +43,6 @@ Servicio de gestión de contenido desarrollado con Spring Boot que permite reali
    ```
 
 2. **Configurar la base de datos MySQL**
-   ```sql
-   CREATE DATABASE content_service;
-   CREATE USER 'content_user'@'localhost' IDENTIFIED BY 'your_password';
-   GRANT ALL PRIVILEGES ON content_service.* TO 'content_user'@'localhost';
-   FLUSH PRIVILEGES;
-   ```
 
 3. **Crear archivo de configuración**
    
@@ -222,9 +216,6 @@ mvn spring-boot:run
 # Crear JAR ejecutable
 mvn clean package
 
-# Ejecutar con perfil específico
-mvn spring-boot:run -Dspring.profiles.active=test
-
 # Verificar estilo de código y dependencias
 mvn verify
 
@@ -248,12 +239,8 @@ El proyecto incluye configuración de JaCoCo para medir la cobertura de código:
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Crear un Pull Request
 
-## Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más detalles.
 
 ## Contacto
 
 **MaoTech Team**
-- Email: support@maotech.cl
 - Documentación: http://localhost:8084/doc/swagger-ui.html
